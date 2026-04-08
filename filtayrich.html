@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filtayrich Productions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #060606;
+    --white: #f2ede8;
+    --cream: #e8e0d5;
+    --gold: #c8a96e;
+    --gold-light: #e2c897;
+    --grey: #888075;
+    --dark-grey: #1a1814;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; cursor: none; }
+  .cursor { position: fixed; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s; }
+  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--gold); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, opacity 0.3s; opacity: 0.6; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 28px 48px; }
+  nav::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(6,6,6,0.9) 0%, transparent 100%); pointer-events: none; }
+  .nav-logo { font-family: var(--font-display); font-size: 22px; letter-spacing: 0.15em; color: var(--white); text-decoration: none; position: relative; }
+  .nav-links { display: flex; gap: 40px; list-style: none; position: relative; }
+  .nav-links a { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .nav-cta { color: var(--black) !important; background: var(--gold); padding: 10px 22px; opacity: 1 !important; }
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--black) !important; }
+  .hero { position: relative; height: 100vh; display: flex; align-items: flex-end; padding: 0 48px 80px; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 40%, rgba(200,169,110,0.08) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(200,169,110,0.05) 0%, transparent 50%), linear-gradient(160deg, #0f0e0c 0%, #060606 60%); }
+  .hero-grain { position: absolute; inset: 0; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); background-size: 200px; }
+  .hero-line { position: absolute; top: 0; bottom: 0; left: 55%; width: 1px; background: linear-gradient(to bottom, transparent, rgba(200,169,110,0.2) 30%, rgba(200,169,110,0.2) 70%, transparent); }
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+  .hero-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: flex; align-items: center; gap: 16px; opacity: 0; animation: fadeUp 0.8s 0.3s forwards; }
+  .hero-tag::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
+  .hero-headline { font-family: var(--font-display); font-size: clamp(72px, 10vw, 140px); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.9s 0.5s forwards; }
+  .hero-headline .gold { color: var(--gold); }
+  .hero-sub { font-size: 16px; line-height: 1.7; color: var(--grey); max-width: 480px; margin-bottom: 48px; font-weight: 300; opacity: 0; animation: fadeUp 0.9s 0.7s forwards; }
+  .hero-actions { display: flex; gap: 20px; align-items: center; opacity: 0; animation: fadeUp 0.9s 0.9s forwards; }
+  .btn-primary { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 16px 36px; text-decoration: none; transition: background 0.2s, transform 0.2s; display: inline-block; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-secondary { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; display: flex; align-items: center; gap: 10px; }
+  .btn-secondary::after { content: '→'; font-size: 14px; }
+  .btn-secondary:hover { opacity: 1; }
+  .hero-scroll { position: absolute; right: 48px; bottom: 80px; writing-mode: vertical-rl; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--grey); opacity: 0; animation: fadeUp 1s 1.2s forwards; display: flex; align-items: center; gap: 12px; }
+  .hero-scroll::after { content: ''; display: block; width: 1px; height: 50px; background: linear-gradient(to bottom, var(--grey), transparent); }
+  .hero-clients { position: absolute; right: 48px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 6px; opacity: 0; animation: fadeIn 1s 1.3s forwards; }
+  .hero-clients-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--grey); margin-bottom: 12px; opacity: 0.6; }
+  .hero-client-name { font-family: var(--font-display); font-size: 15px; letter-spacing: 0.12em; color: var(--white); opacity: 0.3; transition: opacity 0.2s; }
+  .hero-client-name:hover { opacity: 0.9; }
+  .ticker-wrap { overflow: hidden; background: var(--gold); padding: 14px 0; }
+  .ticker { display: flex; white-space: nowrap; animation: ticker 22s linear infinite; }
+  .ticker-item { font-family: var(--font-display); font-size: 13px; letter-spacing: 0.3em; color: var(--black); padding: 0 48px; }
+  .ticker-dot { font-size: 6px; vertical-align: middle; color: rgba(0,0,0,0.4); }
+  .section { padding: 120px 48px; }
+  .section-label { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: flex; align-items: center; gap: 16px; }
+  .section-label::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
+  .section-title { font-family: var(--font-display); font-size: clamp(48px, 6vw, 84px); line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 64px; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.1); }
+  .service-card { background: var(--black); padding: 48px 40px; position: relative; overflow: hidden; transition: background 0.3s; }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.4s ease; }
+  .service-card:hover::before { width: 100%; }
+  .service-card:hover { background: var(--dark-grey); }
+  .service-num { font-family: var(--font-display); font-size: 64px; color: rgba(200,169,110,0.1); line-height: 1; margin-bottom: 24px; transition: color 0.3s; }
+  .service-card:hover .service-num { color: rgba(200,169,110,0.2); }
+  .service-title { font-family: var(--font-display); font-size: 28px; letter-spacing: 0.05em; color: var(--white); margin-bottom: 16px; }
+  .service-desc { font-size: 14px; line-height: 1.8; color: var(--grey); font-weight: 300; }
+  .method-section { padding: 120px 48px; background: var(--dark-grey); position: relative; overflow: hidden; }
+  .method-section::before { content: 'METHOD'; position: absolute; font-family: var(--font-display); font-size: 280px; color: rgba(200,169,110,0.03); top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none; }
+  .method-content { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .method-step { padding: 32px 0; border-bottom: 1px solid rgba(200,169,110,0.1); display: grid; grid-template-columns: 60px 1fr; gap: 24px; align-items: start; transition: padding-left 0.3s; }
+  .method-step:hover { padding-left: 8px; }
+  .method-step:first-of-type { border-top: 1px solid rgba(200,169,110,0.1); }
+  .step-num { font-family: var(--font-display); font-size: 13px; letter-spacing: 0.1em; color: var(--gold); padding-top: 4px; }
+  .step-title { font-family: var(--font-display); font-size: 22px; letter-spacing: 0.05em; color: var(--white); margin-bottom: 8px; }
+  .step-desc { font-size: 13px; line-height: 1.8; color: var(--grey); }
+  .method-statement { position: sticky; top: 120px; }
+  .method-big-text { font-family: var(--font-display); font-size: clamp(48px, 5vw, 72px); line-height: 1.0; letter-spacing: 0.02em; color: var(--white); margin-bottom: 32px; }
+  .method-big-text .accent { color: var(--gold); }
+  .method-statement p { font-size: 15px; line-height: 1.8; color: var(--grey); margin-bottom: 40px; }
+  .work-section { padding: 120px 48px; }
+  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+  .work-item { position: relative; aspect-ratio: 16/9; overflow: hidden; background: var(--dark-grey); cursor: pointer; }
+  .work-item.tall { grid-row: span 2; aspect-ratio: auto; }
+  .work-item-bg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 80px; color: rgba(200,169,110,0.06); letter-spacing: 0.1em; transition: transform 0.6s ease, color 0.4s; }
+  .work-item:hover .work-item-bg { transform: scale(1.05); color: rgba(200,169,110,0.1); }
+  .work-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,6,6,0.9) 0%, rgba(6,6,6,0.2) 50%, transparent 100%); opacity: 0; transition: opacity 0.4s; display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; }
+  .work-item:hover .work-overlay { opacity: 1; }
+  .work-border { position: absolute; inset: 0; border: 1px solid rgba(200,169,110,0); transition: border-color 0.3s; pointer-events: none; }
+  .work-item:hover .work-border { border-color: rgba(200,169,110,0.3); }
+  .work-title { font-family: var(--font-display); font-size: 26px; letter-spacing: 0.05em; color: var(--white); margin-bottom: 6px; transform: translateY(10px); transition: transform 0.3s; }
+  .work-item:hover .work-title { transform: translateY(0); }
+  .work-type { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+  .work-cta { text-align: center; padding: 60px 0 20px; }
+  .stats-section { padding: 80px 48px; border-top: 1px solid rgba(200,169,110,0.1); border-bottom: 1px solid rgba(200,169,110,0.1); display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: rgba(200,169,110,0.05); }
+  .stat-item { background: var(--black); padding: 40px 36px; text-align: center; }
+  .stat-num { font-family: var(--font-display); font-size: 64px; color: var(--gold); letter-spacing: 0.02em; line-height: 1; margin-bottom: 10px; }
+  .stat-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); }
+  .contact-section { padding: 140px 48px; background: var(--dark-grey); position: relative; overflow: hidden; }
+  .contact-section::after { content: ''; position: absolute; bottom: -200px; right: -200px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%); pointer-events: none; }
+  .contact-inner { position: relative; z-index: 2; max-width: 700px; }
+  .contact-headline { font-family: var(--font-display); font-size: clamp(60px, 8vw, 110px); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 32px; }
+  .contact-headline .gold { color: var(--gold); }
+  .contact-sub { font-size: 16px; line-height: 1.7; color: var(--grey); margin-bottom: 56px; max-width: 460px; }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-input { background: rgba(255,255,255,0.04); border: 1px solid rgba(200,169,110,0.15); color: var(--white); font-family: var(--font-body); font-size: 14px; font-weight: 300; padding: 16px 20px; outline: none; transition: border-color 0.2s, background 0.2s; width: 100%; }
+  .form-input::placeholder { color: rgba(136,128,117,0.5); }
+  .form-input:focus { border-color: var(--gold); background: rgba(200,169,110,0.05); }
+  textarea.form-input { resize: vertical; min-height: 120px; }
+  .form-submit { background: var(--gold); color: var(--black); border: none; font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; padding: 18px 48px; cursor: none; transition: background 0.2s, transform 0.2s; align-self: flex-start; }
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .contact-or { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey); margin: 16px 0; }
+  .contact-email { font-family: var(--font-display); font-size: 22px; letter-spacing: 0.1em; color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(200,169,110,0.3); padding-bottom: 4px; transition: border-color 0.2s; }
+  .contact-email:hover { border-color: var(--gold); }
+  .form-success { display: none; font-family: var(--font-display); font-size: 24px; letter-spacing: 0.05em; color: var(--gold); padding: 20px 0; }
+  footer { padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(200,169,110,0.1); }
+  .footer-logo { font-family: var(--font-display); font-size: 18px; letter-spacing: 0.15em; color: var(--white); opacity: 0.5; text-decoration: none; }
+  .footer-copy { font-size: 12px; color: var(--grey); opacity: 0.4; letter-spacing: 0.1em; }
+  .footer-links { display: flex; gap: 32px; }
+  .footer-links a { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey); text-decoration: none; opacity: 0.5; transition: opacity 0.2s, color 0.2s; }
+  .footer-links a:hover { opacity: 1; color: var(--gold); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+  @media (max-width: 900px) {
+    nav { padding: 20px 20px; }
+    .nav-links { gap: 16px; }
+    .hero { padding: 0 20px 60px; }
+    .hero-clients, .hero-scroll { display: none; }
+    .section, .method-section, .work-section, .contact-section { padding: 72px 20px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .method-content { grid-template-columns: 1fr; gap: 48px; }
+    .work-grid { grid-template-columns: 1fr; }
+    .work-item.tall { grid-row: span 1; aspect-ratio: 16/9; }
+    .stats-section { grid-template-columns: 1fr 1fr; padding: 48px 20px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 20px; text-align: center; padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav>
+  <a href="#" class="nav-logo">FILTAYRICH</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#method">The Method</a></li>
+    <li><a href="#contact" class="nav-cta">Let's Work</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Creative Production Partner</div>
+    <h1 class="hero-headline">WE GROW<br>YOUR <span class="gold">BUSINESS</span><br>THROUGH STORY</h1>
+    <p class="hero-sub">Brand campaigns, acquisition-driven video, and social-first content — built to convert. We don't just make content. We move numbers.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Start a Project</a>
+      <a href="#work" class="btn-secondary">See Our Work</a>
+    </div>
+  </div>
+  <div class="hero-clients">
+    <div class="hero-clients-label">Trusted By</div>
+    <div class="hero-client-name">TONAL</div>
+    <div class="hero-client-name">ROC NATION</div>
+    <div class="hero-client-name">NY KNICKS</div>
+    <div class="hero-client-name">FOOT LOCKER</div>
+    <div class="hero-client-name">MONSTER</div>
+    <div class="hero-client-name">APERTURE</div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item">Brand Campaigns <span class="ticker-dot">●</span></span>
+    <span class="ticker-item">Acquisition Video <span class="ticker-dot">●</span></span>
+    <span class="ticker-item">Creator Content <span class="ticker-dot">●</span></span>
+    <span class="ticker-item">The Rich Content Method <span class="ticker-dot">●</span></span>
+    <span class="ticker-item">Influencer Partnerships <span class="ticker-dot">●</span></span>
+    <span class="ticker-item">Social-First Execution <span class="ticker-dot">●</span></span>
+    <span class="ticker-item">Brand Campaigns <span class="ticker-dot">●</span></span>
+    <span class="ticker-item">Acquisition Video <span class="ticker-dot">●</span></span>
+    <span class="ticker-item">Creator Content <span class="ticker-dot">●</span></span>
+    <span class="ticker-item">The Rich Content Method <span class="ticker-dot">●</span></span>
+    <span class="ticker-item">Influencer Partnerships <span class="ticker-dot">●</span></span>
+    <span class="ticker-item">Social-First Execution <span class="ticker-dot">●</span></span>
+  </div>
+</div>
+
+<section class="section" id="services">
+  <div class="section-label reveal">What We Do</div>
+  <h2 class="section-title reveal reveal-delay-1">WHAT WE<br>BRING TO<br>THE TABLE</h2>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <div class="service-title">Brand Campaigns</div>
+      <p class="service-desc">Full-scale campaign production from concept to delivery. We build visual narratives that make your brand impossible to ignore — across every platform, every format.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-num">02</div>
+      <div class="service-title">Acquisition Video</div>
+      <p class="service-desc">Performance-driven content built to convert. Every frame is engineered with data-backed strategy to drive leads, sign-ups, and revenue for your business.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-num">03</div>
+      <div class="service-title">Creator & Influencer</div>
+      <p class="service-desc">From talent sourcing to brand partnerships, we connect the right voices to your brand and produce content that builds authentic communities and drives real engagement.</p>
+    </div>
+  </div>
+</section>
+
+<div class="stats-section">
+  <div class="stat-item reveal">
+    <div class="stat-num">50+</div>
+    <div class="stat-label">Brands Served</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-1">
+    <div class="stat-num">100M+</div>
+    <div class="stat-label">Views Generated</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-2">
+    <div class="stat-num">10+</div>
+    <div class="stat-label">Years in Business</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-3">
+    <div class="stat-num">3X</div>
+    <div class="stat-label">Avg. Conversion Lift</div>
+  </div>
+</div>
+
+<section class="method-section" id="method">
+  <div class="method-content">
+    <div>
+      <div class="section-label reveal">Our Approach</div>
+      <h2 class="section-title reveal reveal-delay-1" style="margin-bottom:40px">THE RICH<br>CONTENT<br>METHOD</h2>
+      <div class="method-step reveal">
+        <div class="step-num">01</div>
+        <div><div class="step-title">DISCOVER</div><p class="step-desc">We deep-dive into your brand, audience, and goals. No assumptions — just sharp strategy built on real data and market insight.</p></div>
+      </div>
+      <div class="method-step reveal reveal-delay-1">
+        <div class="step-num">02</div>
+        <div><div class="step-title">CREATE</div><p class="step-desc">Bold storytelling meets social-first thinking. We build custom teams with top-tier talent to execute every project with precision.</p></div>
+      </div>
+      <div class="method-step reveal reveal-delay-2">
+        <div class="step-num">03</div>
+        <div><div class="step-title">DISTRIBUTE</div><p class="step-desc">Content built for the platforms where your audience lives. Optimized for each channel, formatted to stop the scroll.</p></div>
+      </div>
+      <div class="method-step reveal reveal-delay-3">
+        <div class="step-num">04</div>
+        <div><div class="step-title">MEASURE</div><p class="step-desc">Leads, conversions, and growth — we track what matters. Every campaign delivers measurable ROI you can take to the boardroom.</p></div>
+      </div>
+    </div>
+    <div class="method-statement reveal">
+      <div class="method-big-text">WE DON'T JUST MAKE CONTENT.<br>WE <span class="accent">GROW YOUR BUSINESS.</span></div>
+      <p>Filtayrich is a forward-thinking production company built for brands that are serious about growth. Our flexible, full-service model means you get a custom team built around your project — not a cookie-cutter agency package.</p>
+      <a href="#contact" class="btn-primary">Tell Us About Your Project</a>
+    </div>
+  </div>
+</section>
+
+<section class="work-section" id="work">
+  <div class="section-label reveal">Selected Work</div>
+  <h2 class="section-title reveal reveal-delay-1">PROJECTS<br>THAT MOVED<br>THE NEEDLE</h2>
+  <div class="work-grid">
+    <div class="work-item tall reveal">
+      <div class="work-item-bg">TONAL</div>
+      <div class="work-border"></div>
+      <div class="work-overlay">
+        <div class="work-type">Brand Campaign</div>
+        <div class="work-title">Tonal</div>
+      </div>
+    </div>
+    <div class="work-item reveal reveal-delay-1">
+      <div class="work-item-bg">ROC</div>
+      <div class="work-border"></div>
+      <div class="work-overlay">
+        <div class="work-type">Brand Content</div>
+        <div class="work-title">Roc Nation</div>
+      </div>
+    </div>
+    <div class="work-item reveal reveal-delay-2">
+      <div class="work-item-bg">KNICKS</div>
+      <div class="work-border"></div>
+      <div class="work-overlay">
+        <div class="work-type">Brand Collab</div>
+        <div class="work-title">NY Knicks × Extra Butter × Mitchell & Ness</div>
+      </div>
+    </div>
+    <div class="work-item reveal">
+      <div class="work-item-bg">FTL</div>
+      <div class="work-border"></div>
+      <div class="work-overlay">
+        <div class="work-type">Acquisition Campaign</div>
+        <div class="work-title">CCNYC × Foot Locker</div>
+      </div>
+    </div>
+    <div class="work-item reveal reveal-delay-1">
+      <div class="work-item-bg">AAPTIV</div>
+      <div class="work-border"></div>
+      <div class="work-overlay">
+        <div class="work-type">Growth Video</div>
+        <div class="work-title">Aaptiv</div>
+      </div>
+    </div>
+  </div>
+  <div class="work-cta reveal">
+    <a href="#contact" class="btn-primary">Work With Us</a>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="section-label reveal">Get In Touch</div>
+    <h2 class="contact-headline reveal reveal-delay-1">LET'S BUILD<br><span class="gold">SOMETHING</span><br>THAT CONVERTS</h2>
+    <p class="contact-sub reveal reveal-delay-2">Tell us about your project. We respond within 24 hours and move fast for the right partners.</p>
+    <div class="contact-form reveal reveal-delay-3" id="contact-form">
+      <div class="form-row">
+        <input type="text" class="form-input" placeholder="Your Name" id="form-name">
+        <input type="text" class="form-input" placeholder="Company / Brand" id="form-company">
+      </div>
+      <input type="email" class="form-input" placeholder="Email Address" id="form-email">
+      <select class="form-input" id="form-service" style="appearance:none;-webkit-appearance:none;background-color:rgba(255,255,255,0.04)">
+        <option value="" disabled selected>What are you looking for?</option>
+        <option>Brand Campaign</option>
+        <option>Acquisition Video</option>
+        <option>Creator / Influencer Content</option>
+        <option>Full-Service Production</option>
+        <option>Something Else</option>
+      </select>
+      <textarea class="form-input" placeholder="Tell us about your project, timeline, and goals..." id="form-message"></textarea>
+      <button class="form-submit" onclick="submitForm()">Send It →</button>
+      <div id="form-success" class="form-success">✓ Message received. We'll be in touch within 24 hours.</div>
+    </div>
+    <div style="margin-top:48px" class="reveal">
+      <div class="contact-or">Or reach out directly</div>
+      <a href="mailto:hello@filtayrich.com" class="contact-email">HELLO@FILTAYRICH.COM</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="footer-logo">FILTAYRICH</a>
+  <div class="footer-links">
+    <a href="#work">Work</a>
+    <a href="#services">Services</a>
+    <a href="#method">The Method</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 Filtayrich Productions</div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  });
+  function animRing() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a, button, .work-item, .service-card, .method-step').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.width = '6px'; cursor.style.height = '6px'; ring.style.width = '52px'; ring.style.height = '52px'; ring.style.opacity = '1'; });
+    el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; ring.style.width = '36px'; ring.style.height = '36px'; ring.style.opacity = '0.6'; });
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+
+  function submitForm() {
+    const name = document.getElementById('form-name').value.trim();
+    const email = document.getElementById('form-email').value.trim();
+    if (!name || !email) { alert('Please fill in your name and email.'); return; }
+    const form = document.getElementById('contact-form');
+    form.style.opacity = '0.3'; form.style.pointerEvents = 'none';
+    setTimeout(() => {
+      document.getElementById('form-success').style.display = 'block';
+      form.style.opacity = '1';
+    }, 500);
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
