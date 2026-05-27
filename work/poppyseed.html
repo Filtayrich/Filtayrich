@@ -17,7 +17,7 @@
   .nav-back{color:var(--mid);text-decoration:none;font-size:12px;letter-spacing:.2em;text-transform:uppercase;transition:color .3s;}.nav-back:hover{color:var(--gold);}
   .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;}.reveal.visible{opacity:1;transform:translateY(0);}
   .case-hero{min-height:70vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 80px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0f050f,#1e0f1e);}
-  .case-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 80% 20%,rgba(201,168,76,.07) 0%,transparent 70%);}
+  .case-hero-bg{position:absolute;inset:0;background-image:url('../images/POPPY%20SEED%20HEALTH.png');background-size:cover;background-position:center;opacity:0.4;}
   .case-tag{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;opacity:0;animation:fadeUp .8s ease .3s forwards;}
   .case-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,10vw,160px);line-height:.9;letter-spacing:.02em;opacity:0;animation:fadeUp .9s ease .5s forwards;}
   .case-subtitle{font-size:18px;color:var(--mid);max-width:600px;line-height:1.7;margin-top:24px;opacity:0;animation:fadeUp .9s ease .7s forwards;}
@@ -37,7 +37,6 @@
   .sidebar-value{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.05em;line-height:1.4;}
   .sidebar-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
   .sidebar-list li{font-size:13px;color:var(--mid);padding-left:12px;position:relative;}.sidebar-list li::before{content:'—';position:absolute;left:0;color:var(--gold);}
-  .add-video-note{background:rgba(201,168,76,.06);border:1px dashed rgba(201,168,76,.3);padding:20px 24px;font-size:12px;color:var(--gold);letter-spacing:.1em;text-align:center;margin:40px 0;}
   .case-nav{display:flex;justify-content:space-between;align-items:center;padding:60px 48px;border-top:1px solid rgba(255,255,255,.06);max-width:1200px;margin:0 auto;}
   .case-nav a{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.05em;color:var(--mid);text-decoration:none;transition:color .3s;}.case-nav a:hover{color:var(--gold);}
   .case-nav-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;}
@@ -51,60 +50,92 @@
 <body>
 <div class="cursor" id="cursor"></div><div class="cursor-ring" id="cursorRing"></div>
 <nav><a href="../index.html" class="nav-logo">FILTAY<span>RICH</span></a><a href="../index.html#work" class="nav-back">← All Work</a></nav>
+
 <section class="case-hero">
-<div class="case-hero-bg" style="background-image:url('../images/POPPYSEEDHEALTH.png');background-size:cover;background-position:center;opacity:0.4;">
-</div>  <p class="case-tag">Health Tech · Campaign · Concept to Screen</p>
+  <div class="case-hero-bg"></div>
+  <p class="case-tag">Health Tech · Brand Campaign · Concept to Screen</p>
   <h1 class="case-title">Poppy Seed Health</h1>
-<p class="case-subtitle">We rejected the client's concept, pitched our own, produced a two day shoot from scratch and the campaign helped secure millions in funding.</p></section>
+  <p class="case-subtitle">We rejected the client's concept, pitched our own, produced a two day shoot from scratch — and the campaign helped secure millions in funding from the co-founder of Reddit.</p>
+</section>
+
 <div class="stats-bar">
-  <div class="stat-item reveal"><div class="stat-num">4-6</div><div class="stat-label">Weeks Concept to Delivery</div></div>
-  <div class="stat-item reveal"><div class="stat-num">24/7</div><div class="stat-label">The Core Promise We Built Around</div></div>
-  <div class="stat-item reveal"><div class="stat-num">Full</div><div class="stat-label">Campaign From Scratch</div></div>
+  <div class="stat-item reveal"><div class="stat-num">2</div><div class="stat-label">Day Production Shoot</div></div>
+  <div class="stat-item reveal"><div class="stat-num">$M+</div><div class="stat-label">Funding Secured Post Campaign</div></div>
+  <div class="stat-item reveal"><div class="stat-num">Full</div><div class="stat-label">Concept Rebuilt From Scratch</div></div>
 </div>
+
 <div class="case-body">
   <div class="case-grid">
     <div>
+
       <div class="case-section reveal">
         <p class="case-section-label">The Brief</p>
-        <h2>Women Needed to Feel Seen, Not Sold To</h2>
-        <p>Poppy Seed Health came to us with an idea already in mind. They wanted mothers standing in front of quilts telling their stories. We told them that would not work.</p>
-  <p>Their audience did not need to be told about the app. They needed to feel it. There is a big difference between showing someone talking about a product and showing the exact moment that product becomes necessary. We pushed for the latter and they trusted us.</p>
-</div>
-<div style="position:relative;width:100%;padding-bottom:56.25%;background:#1a1a1a;margin:40px 0;">
-  <iframe 
-    style="position:absolute;inset:0;width:100%;height:100%;border:none;" 
-    src="https://player.vimeo.com/video/601583081?badge=0&byline=0&title=0" 
-    allowfullscreen>
-  </iframe>
-</div>     
+        <h2>We Changed the Concept Before We Touched a Camera</h2>
+        <p>Poppy Seed Health is a first of its kind telehealth platform giving pregnant and postpartum women direct 24/7 access to doulas, midwives, and nurses. They came to us with a vision already in place — mothers standing in front of quilts, telling their stories to camera.</p>
+        <p>We told them that would not work. Their audience did not need to hear about the app. They needed to feel the exact moment the app becomes necessary. There is a big difference between telling and showing. We pushed for the latter and they trusted us to rebuild it from the ground up.</p>
+      </div>
+
+      <div style="position:relative;width:100%;padding-bottom:56.25%;background:#1a1a1a;margin:40px 0;">
+        <iframe
+          style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+          src="https://player.vimeo.com/video/601583081?badge=0&byline=0&title=0"
+          allowfullscreen>
+        </iframe>
+      </div>
+
       <div class="case-section reveal">
-        <div class="case-section reveal">
-  <p class="case-section-label">The Approach</p>
-  <h2>One Text Away</h2>
-  <p>The campaign concept was built around real moments. A woman noticing postpartum hair loss and not knowing if it was normal. A pregnant woman experiencing discharge in the middle of the night with no one to call. Real fears that real women carry alone.</p>
-  <p>In each scenario she picks up her phone, texts Poppy Seed Health, and gets an answer immediately. The app did not just solve a problem. It was there for the moment the problem happened. That is what the campaign showed.</p>
-  <p>We produced a full two day shoot across multiple scenarios, cast real women, and supervised everything from concept through post production.</p>
-</div>
+        <p class="case-section-label">The Approach</p>
+        <h2>One Text Away</h2>
+        <p>The campaign concept was built around real moments every woman in their audience would recognize. A woman noticing postpartum hair loss and not knowing if it was normal. A pregnant woman experiencing something unexpected in the middle of the night with no one to call. Real fears that real women carry alone.</p>
+        <p>In each scenario she picks up her phone, sends one text to Poppy Seed Health, and gets an answer immediately. The app was not just solving a problem. It was present for the exact moment the problem happened. That is what made the campaign land.</p>
+        <p>We produced a full two day shoot across multiple scenarios, cast real women, and handled everything from concept creation and scripting through casting, location scouting, Covid compliance, camera supervision, and post production.</p>
+      </div>
+
       <div class="case-section reveal">
         <p class="case-section-label">The Results</p>
-        <h2>The Campaign Helped Secure Millions in Funding </h2>
-       <p>After the campaign launched Poppy Seed Health secured millions of dollars in funding from the co-founder of Reddit. The creative work did not just build brand awareness. It demonstrated the value of the product so clearly that investors could see it too.</p>
-  <p>This is what happens when you stop telling people about your product and start showing them the moment it matters most.</p>
+        <h2>The Campaign Helped Secure Millions in Funding</h2>
+        <p>After the campaign launched Poppy Seed Health secured millions of dollars in funding from the co-founder of Reddit. The creative work did not just build brand awareness. It demonstrated the value of the product so clearly that investors could see it too.</p>
+        <p>This is what happens when you stop telling people about your product and start showing them the moment it matters most. The right creative does not just market a company. It can change its trajectory entirely.</p>
       </div>
+
     </div>
+
     <div class="case-sidebar">
       <div class="sidebar-block reveal"><p class="sidebar-label">Client</p><p class="sidebar-value">Poppy Seed Health</p></div>
       <div class="sidebar-block reveal"><p class="sidebar-label">Industry</p><p class="sidebar-value">Health Technology / Telehealth</p></div>
       <div class="sidebar-block reveal"><p class="sidebar-label">Engagement</p><p class="sidebar-value">Full Campaign Production</p></div>
-      <div class="sidebar-block reveal"><p class="sidebar-label">Roles</p><ul class="sidebar-list"><li>Concept Creation</li><li>Casting and Scripting</li><li>Location Scouting</li><li>Camera Supervision</li><li>Post Production Supervision</li></ul></div>
-      <div class="sidebar-block reveal"><p class="sidebar-label">Deliverables</p><ul class="sidebar-list"><li>Full brand campaign</li><li>Hero campaign video</li><li>Behind the scenes photography</li><li>Social cuts</li></ul></div>
+      <div class="sidebar-block reveal">
+        <p class="sidebar-label">Roles</p>
+        <ul class="sidebar-list">
+          <li>Concept Creation</li>
+          <li>Casting and Scripting</li>
+          <li>Location Scouting</li>
+          <li>Camera Supervision</li>
+          <li>Covid Compliance</li>
+          <li>Post Production Supervision</li>
+        </ul>
+      </div>
+      <div class="sidebar-block reveal">
+        <p class="sidebar-label">Deliverables</p>
+        <ul class="sidebar-list">
+          <li>Full brand campaign</li>
+          <li>Hero campaign video</li>
+          <li>Behind the scenes photography</li>
+          <li>Social cuts</li>
+          <li>2 day shoot, multiple scenarios</li>
+        </ul>
+      </div>
     </div>
+  </div>
 </div>
+
 <div class="case-nav">
   <div><p class="case-nav-label">← Previous</p><a href="rocnation.html">Roc Nation</a></div>
   <div style="text-align:right"><p class="case-nav-label">Next →</p><a href="footlocker.html">CCNYC x Foot Locker</a></div>
 </div>
+
 <footer><a href="../index.html" class="footer-logo">FILTAY<span>RICH</span></a><p class="footer-copy">© 2026 Filtayrich Productions</p></footer>
+
 <script>
   const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
   document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';});
